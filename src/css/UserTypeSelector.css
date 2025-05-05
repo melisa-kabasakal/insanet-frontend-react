@@ -1,0 +1,32 @@
+.user-type-selector {
+    margin-bottom: 20px;
+  }
+  
+  .user-type-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .user-type-btn {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+  }
+  
+  .user-type-btn:hover {
+    background-color: #eaeaea;
+  }
+  
+  .user-type-btn.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+  }
+  
