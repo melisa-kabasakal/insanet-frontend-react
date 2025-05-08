@@ -7,7 +7,7 @@ const EmailVerification = ({ onVerifyEmail }) => {
   const [emailCode, setEmailCode] = useState('');
 
   const handleRequestEmailOtp = () => {
-    axios.post('http://localhost:8082/insanet/auth/request-otp', { emailOrPhone: email })
+    axios.post('http://localhost:8082/insanet/api/auth/request-otp', { emailOrPhone: email })
       .then(response => {
         console.log('E-posta OTP gönderildi: ', response.data);
         document.getElementById('emailVerifySection').style.display = 'block';
@@ -18,7 +18,7 @@ const EmailVerification = ({ onVerifyEmail }) => {
   };
 
   const handleVerifyEmailOtp = () => {
-    axios.post('http://localhost:8082/insanet/auth/verify-otp', { emailOrPhone: email, otpCode: emailCode })
+    axios.post('http://localhost:8082/insanet/api/auth/verify-otp', { emailOrPhone: email, otpCode: emailCode })
       .then(response => {
         console.log('E-posta doğrulandı: ', response.data);
         onVerifyEmail(email, emailCode);
@@ -29,7 +29,7 @@ const EmailVerification = ({ onVerifyEmail }) => {
   };
 
   return (
-    <div className="auth-tab-content" id="emailAuthTab">
+    <div className="auth-tab-content active" id="emailAuthTab">
       <div className="form-group">
         <label htmlFor="emailAuth">E-posta Adresi</label>
         <input
@@ -71,3 +71,4 @@ const EmailVerification = ({ onVerifyEmail }) => {
 };
 
 export default EmailVerification;
+

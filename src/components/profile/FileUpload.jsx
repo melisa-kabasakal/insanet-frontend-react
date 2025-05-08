@@ -1,30 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const FileUpload = ({ label, fileId, onFileChange }) => {
-  const [fileName, setFileName] = useState('');
-
+const FileUpload = ({ onFilesChange }) => {
   const handleFileChange = (e) => {
-    setFileName(e.target.files[0]?.name || '');
-    onFileChange(e.target.files[0]);
+    const { name, files } = e.target;
+    onFilesChange((prev) => ({
+      ...prev,
+      [name]: files[0]
+    }));
   };
 
   return (
-    <div className="form-group file-upload-group">
-      <label htmlFor={fileId}>{label}:</label>
-      <div className="file-upload-container">
-        <label htmlFor={fileId} className="custom-file-upload">
-          <i className="fas fa-cloud-upload-alt"></i> Dosya Seç
-        </label>
-        <input
-          type="file"
-          id={fileId}
-          name={fileId}
-          className="hidden-file-input"
-          accept=".pdf,.jpg,.jpeg,.png,.docx"
-          onChange={handleFileChange}
-          required
-        />
-        <span className="file-name-display">{fileName}</span>
+    <div className="profile-section">
+      <h2>Firma Belgeleri</h2>
+      <div className="form-group">
+        <label>Vergi Levhası</label>
+        <input type="file" name="taxCertificate" onChange={handleFileChange} accept="application/pdf,image/*" />
+      </div>
+      <div className="form-group">
+        <label>Ticaret Sicil Gazetesi</label>
+        <input type="file" name="tradeRegistryGazette" onChange={handleFileChange} accept="application/pdf,image/*" />
+      </div>
+      <div className="form-group">
+        <label>İmza Sirküsü</label>
+        <input type="file" name="signatureCircular" onChange={handleFileChange} accept="application/pdf,image/*" />
+      </div>
+      <div className="form-group">
+        <label>Faaliyet Belgesi</label>
+        <input type="file" name="activityCertificate" onChange={handleFileChange} accept="application/pdf,image/*" />
       </div>
     </div>
   );

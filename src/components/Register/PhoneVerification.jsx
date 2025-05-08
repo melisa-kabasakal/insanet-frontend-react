@@ -7,7 +7,7 @@ const PhoneVerification = ({ onVerifyPhone }) => {
   const [otpCode, setOtpCode] = useState('');
 
   const handleRequestOtp = () => {
-    axios.post('http://localhost:8082/insanet/auth/request-otp', { emailOrPhone: phone })
+    axios.post('http://localhost:8082/insanet/api/auth/request-otp', { emailOrPhone: phone })
       .then(response => {
         console.log('Telefon OTP gönderildi: ', response.data);
         document.getElementById('otpSection').style.display = 'block';
@@ -18,7 +18,7 @@ const PhoneVerification = ({ onVerifyPhone }) => {
   };
 
   const handleVerifyPhoneOtp = () => {
-    axios.post('http://localhost:8082/insanet/auth/verify-otp', { emailOrPhone: phone, otpCode: otpCode })
+    axios.post('http://localhost:8082/insanet/api/auth/verify-otp', { emailOrPhone: phone, otpCode: otpCode })
       .then(response => {
         console.log('Telefon doğrulandı: ', response.data);
         onVerifyPhone(phone, otpCode);

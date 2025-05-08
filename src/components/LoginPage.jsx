@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; 
+import { Link, useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
+
 
 const LoginPage = () => {
     const [selectedAuthMethod, setSelectedAuthMethod] = useState('email');
     const [emailOrPhone, setEmailOrPhone] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleSelectAuthMethod = (method) => {
         setSelectedAuthMethod(method);
@@ -14,23 +16,36 @@ const LoginPage = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
+    
         try {
+
+            console.log("Email or Phone: ", emailOrPhone);
+            console.log("Password: ", password);
+
             const requestData = {
                 emailOrPhone,
                 password,
             };
-
-            const response = await axios.post('http://localhost:8082/insanet/auth/login', requestData);
-
+            const response = await axios.post('http://localhost:8082/insanet/api/auth/login', requestData, { withCredentials: true });
+    
+            const userType = response.data.userType;
             const token = response.data.token;
-            localStorage.setItem('authToken', token);
-            console.log('Login successful', response.data);
+    
+            localStorage.setItem('token', token); 
+    
+            console.log('User Type:', userType);
+    
+            if (userType === 'MUTEAHHIT') {
+                navigate('/profile');
+            } else {
+                navigate('/');
+            }
         } catch (err) {
             setError('Giriş işlemi başarısız. Lütfen bilgilerinizi kontrol edin.');
             console.error('Login failed:', err.response ? err.response.data : err.message);
         }
     };
+    
 
     return (
         <div className="login-container auth-container">
@@ -78,8 +93,8 @@ const LoginPage = () => {
                         />
                     </div>
                     <div className="form-options">
-                        <a href="#/forgot-password" className="forgot-password-link">Şifremi Unuttum</a>
-                    </div>
+  <Link to="/forgot-password" className="forgot-password-link">Şifremi Unuttum</Link>
+</div>
                     <div className="form-group">
                         <button type="submit" className="btn-submit">Giriş Yap</button>
                     </div>
@@ -128,3 +143,4 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+

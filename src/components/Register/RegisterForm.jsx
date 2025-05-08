@@ -3,10 +3,13 @@ import axios from 'axios';
 import UserTypeSelector from './UserTypeSelector';
 import AuthMethodSelector from './AuthMethodSelector';
 import PasswordSection from './PasswordSection';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const RegisterForm = ({ selectedAuthMethod, selectedUserType, emailOrPhone, otpCode, isVerified }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,7 +29,7 @@ const RegisterForm = ({ selectedAuthMethod, selectedUserType, emailOrPhone, otpC
       return;
     }
 
-    axios.post('http://localhost:8082/insanet/auth/register', {
+    axios.post('http://localhost:8082/insanet/api/auth/register', {
       emailOrPhone,
       otpCode,                
       password,
@@ -34,6 +37,8 @@ const RegisterForm = ({ selectedAuthMethod, selectedUserType, emailOrPhone, otpC
     })
     .then(response => {
       console.log('Kayıt başarılı:', response.data);
+      toast.success('Kayıt başarılı! Giriş yapabilirsiniz.');
+      navigate('/login');
     })
     .catch(error => {
       console.error('Kayıt başarısız:', error);
