@@ -19,9 +19,6 @@ const LoginPage = () => {
     
         try {
 
-            console.log("Email or Phone: ", emailOrPhone);
-            console.log("Password: ", password);
-
             const requestData = {
                 emailOrPhone,
                 password,
@@ -32,8 +29,6 @@ const LoginPage = () => {
             const token = response.data.token;
     
             localStorage.setItem('token', token); 
-    
-            console.log('User Type:', userType);
     
             if (userType === 'MUTEAHHIT') {
                 navigate('/profile');

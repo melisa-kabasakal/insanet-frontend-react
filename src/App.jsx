@@ -14,6 +14,7 @@ import ProfileContainer from './components/profile/ProfileContainer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ForgotPasswordPage from './components/Register/ForgotPassword';
+import ProductsPage from './components/product/ProductsPage';
 
 const App = () => {
   const [selectedUserType, setSelectedUserType] = useState(null);
@@ -85,6 +86,7 @@ const App = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />}/>
           <Route path="/profile" element={<ProfileContainer />} />
+          <Route path="/products" element={<ProductsPage />} />
         </Routes>
       </div>
       <Footer />
